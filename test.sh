@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo 1) List the agents
+echo 1) List agents
 
 docker exec -it mftlab_agent10_1 fteListAgents
 

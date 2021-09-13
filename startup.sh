@@ -14,6 +14,8 @@ echo $(date -Is) Setup Docker OK
 
 setup_docker_ce
 
+chown 666 images/qm/*
+
 docker-compose up --build -d
 
 chmod -R 777 data/
