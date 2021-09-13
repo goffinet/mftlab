@@ -12,6 +12,7 @@ echo 3- Check if a simple transfer is working
 
 docker exec -it mftlab_agent10_1 fteCreateTransfer -p MQMFT -t binary -sa AGENT10 -sm MQMFT -da AGENT20 -dm MQMFT -de overwrite -dd "/mountpath/agent10/flow1/output/new/" "/mountpath/agent20/flow1/input/new/*"
 docker exec -it mftlab_agent10_1 mqfts
+sleep 10
 
 echo 4- agent20:/mountpath/agent10/flow1/output/new/
 
@@ -24,6 +25,7 @@ docker exec -it mftlab_agent10_1 fteCreateMonitor -p MQMFT -ma AGENT10 -mn AGENT
 
 echo 6- List a Monitor
 
+sleep 10
 docker exec -it mftlab_agent10_1 fteListMonitors -v -ma AGENT10 -mn AGENT10_AGENT20_FLOW2
 
 echo 7- Check transfers
@@ -36,7 +38,8 @@ echo ${RANDOM} > data/agent10/agent20/flow2/input/new/newsalary.csv
 
 echo 9- Wait and see at destination
 
-sleep 20 ; docker exec -it mftlab_agent20_1 ls -lh /mountpath/agent10/flow2/output/new/newsalary.csv
+sleep 20
+docker exec -it mftlab_agent20_1 ls -lh /mountpath/agent10/flow2/output/new/newsalary.csv
 
 echo 10- Create a data/agent10/agent20/flow2/input/new/oldperks.xls file
 
@@ -44,6 +47,7 @@ echo ${RANDOM} > data/agent10/agent20/flow2/input/new/oldperks.xls
 
 echo 11- Wait and see at destination
 
-sleep 20 ; docker exec -it mftlab_agent20_1 ls -lh /mountpath/agent10/flow2/output/new/oldperks.xls
+sleep 20
+docker exec -it mftlab_agent20_1 ls -lh /mountpath/agent10/flow2/output/new/oldperks.xls
 
 docker exec -it mftlab_agent10_1 mqfts
