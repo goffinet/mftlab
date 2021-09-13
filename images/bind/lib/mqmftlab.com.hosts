@@ -1,0 +1,17 @@
+$ttl 38400
+mqmftlab.com.	IN	SOA	localhost. root.localhost (
+			1611572558
+			10800
+			3600
+			604800
+			38400 )
+mqmftlab.com.	IN	NS	localhost.
+gw.mqmftlab.com.	IN 	A	172.25.0.253
+dns.mqmftlab.com.	IN	A	172.25.0.252
+datagen.mqmftlab.com.	IN	A	172.25.0.251
+qm.mqmftlab.com.	IN 	A	172.25.0.200
+qmcoordination.mqmftlab.com.	IN 	CNAME	qm.mqmftlab.com.
+qmcommand.mqmftlab.com.	IN 	CNAME	qm.mqmftlab.com.
+qmagent.mqmftlab.com.	IN 	CNAME	qm.mqmftlab.com.
+agent10.mqmftlab.com.	IN	A	172.25.0.10
+agent20.mqmftlab.com.	IN	A	172.25.0.20

@@ -1,0 +1,44 @@
+{
+	"waitTimeToStart":20,
+	"coordinationQMgr":{
+		"name":"MQMFT",
+		"host":"qmcoordination.mqmftlab.com",
+		"port":1414,
+		"channel":"DEV.APP.SVRCONN",
+		"additionalProperties":{}
+	},
+	"commandQMgr":{
+		"name":"MQMFT",
+		"host":"qmcommand.mqmftlab.com",
+		"port":1414,
+		"channel":"DEV.APP.SVRCONN",
+		"additionalProperties": {}
+	},
+	"agents":[
+		{
+			"name":"AGENT10",
+			"deleteOnTermination":"true",
+			"type":"STANDARD",
+			"qmgrName":"MQMFT",
+			"qmgrHost":"qmagent.mqmftlab.com",
+			"qmgrPort":1414,
+			"qmgrChannel":"DEV.APP.SVRCONN",
+			"additionalProperties":{
+				"enableQueueInputOutput":"true",
+				"logCapture":"true"
+			}
+		},{
+			"name":"AGENT20",
+			"type":"STANDARD",
+			"deleteOnTermination":"true",
+			"cleanOnStart":"all",
+			"qmgrName":"MQMFT",
+			"qmgrHost":"qmagent.mqmftlab.com",
+			"qmgrPort":1414,
+			"qmgrChannel":"DEV.APP.SVRCONN",
+			"additionalProperties":{
+				"logCapture":"true",
+				"enableQueueInputOutput":"true"
+		}
+	]
+}

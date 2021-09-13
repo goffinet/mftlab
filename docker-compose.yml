@@ -1,0 +1,146 @@
+version: '3.2'
+
+# NETWORK CONFIGURATION
+networks:
+    mqmftlab_network:
+        driver: bridge
+        driver_opts:
+          com.docker.network.bridge.enable_ip_masquerade: "true"
+        ipam:
+            config:
+                - subnet: 172.25.0.0/24
+                  gateway: 172.25.0.253
+
+# SHARED VOLUMES
+volumes:
+    mqmftdata:
+
+# SERVICES
+services:
+    # DNS CONFIGURATION
+    dns:
+        hostname: dns
+        domainname: mqmftlab.com
+        restart: always
+        image: sameersbn/bind:9.16.1-20200524
+        volumes:
+            - type: bind
+              source: ./images/bind/
+              target: /data/bind
+              read_only: false
+        networks:
+            mqmftlab_network:
+                ipv4_address: 172.25.0.252
+
+    # QM CONFIGURATION
+    qm:
+        hostname: qm
+        domainname: mqmftlab.com
+        restart: always
+        image: qm
+        volumes:
+            - type: bind
+              source: ./images/resolv.conf
+              target: /etc/resolv.conf
+              read_only: false
+            - type: volume
+              source: mqmftdata
+              target: /mnt/mqm
+        environment:
+            LICENSE: accept
+            MQ_QMGR_NAME: MQMFT
+        build:
+            context: ./images/qm
+            dockerfile: Dockerfile
+        depends_on:
+            - dns
+        networks:
+            mqmftlab_network:
+                ipv4_address: 172.25.0.200
+
+
+    # AGENT10 CONFIGURATION
+    agent10:
+        hostname: agent10
+        domainname: mqmftlab.com
+        image: docker.io/ibmcom/mqmft
+        volumes:
+            - type: bind
+              source: ./images/resolv.conf
+              target: /etc/resolv.conf
+              read_only: false
+            - type: bind
+              source: ./agentconfig.json
+              target: /mftagentcfg/agentconfig.json
+              read_only: false
+            - type: bind
+              source: ./data/agent10
+              target: /mountpath
+              read_only: false
+        environment:
+            LICENSE: accept
+            MFT_AGENT_NAME: AGENT10
+            MFT_AGENT_CONFIG_FILE: /mftagentcfg/agentconfig.json
+            MFT_LOG_LEVEL: verbose
+        depends_on:
+            - dns
+            - qm
+        networks:
+            mqmftlab_network:
+                ipv4_address: 172.25.0.10
+
+    # AGENT20 CONFIGURATION
+    agent20:
+        hostname: agent20
+        domainname: mqmftlab.com
+        image: docker.io/ibmcom/mqmft
+        volumes:
+            - type: bind
+              source: ./images/resolv.conf
+              target: /etc/resolv.conf
+              read_only: false
+            - type: bind
+              source: ./agentconfig.json
+              target: /mftagentcfg/agentconfig.json
+              read_only: false
+            - type: bind
+              source: ./data/agent20
+              target: /mountpath
+              read_only: false
+        environment:
+            LICENSE: accept
+            MFT_AGENT_NAME: AGENT20
+            MFT_AGENT_CONFIG_FILE: /mftagentcfg/agentconfig.json
+            MFT_LOG_LEVEL: verbose
+        depends_on:
+            - dns
+            - qm
+        networks:
+            mqmftlab_network:
+                ipv4_address: 172.25.0.20
+
+    # TEST CONFIGURATION
+    datagen:
+        hostname: datagen
+        domainname: mqmftlab.com
+        image: docker.io/centos
+        volumes:
+            - type: bind
+              source: ./images/resolv.conf
+              target: /etc/resolv.conf
+              read_only: false
+            - type: bind
+              source: ./data
+              target: /data
+              read_only: false
+            - type: bind
+              source: ./images/datagen/generate_data.sh
+              target: /opt/generate_data.sh
+              read_only: false
+        entrypoint: bash /opt/generate_data.sh agent10 agent20 flow2
+        depends_on:
+            - agent10
+            - agent20
+        networks:
+            mqmftlab_network:
+                ipv4_address: 172.25.0.251
