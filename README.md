@@ -71,7 +71,7 @@ On the command line:
 
 A datagenerator container will generate fake data to `/mountpath/agent20/flow2/input/new` on AGENT10 agent.
 
-`/mountpath` – Path on the host file system mounted into container as `/mountpath`. This will be the directory where the agent will pick files to transfer in the local ./<data>/<agent>/<peer>/<flow> folder with this subfolder structure:
+`/mountpath` – Path on the host file system mounted into container as `/mountpath`. This will be the directory where the agent will pick files to transfer in the local `./<data>/<agent>/<peer>/<flow>` folder with this subfolder structure:
 
 ```
 .
