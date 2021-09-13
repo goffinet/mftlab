@@ -19,3 +19,7 @@ chown 666 images/qm/*
 docker-compose up --build -d
 
 chmod -R 777 data/
+
+sleep 120
+
+bash test.sh
