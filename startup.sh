@@ -22,6 +22,10 @@ docker-compose up -d
 
 chmod -R 777 data/
 
-sleep 120
+sleep 60 ; docker-compose down
 
-bash test.sh
+chown 666 images/qm/*
+
+docker-compose up -d
+
+sleep 60 ; bash test.sh
