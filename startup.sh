@@ -14,9 +14,9 @@ echo $(date -Is) Setup Docker OK
 
 setup_docker_ce
 
-docker-compose build
-
 chown 666 images/qm/*
+
+docker-compose build
 
 docker-compose up -d
 
