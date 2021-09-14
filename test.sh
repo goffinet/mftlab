@@ -43,7 +43,7 @@ echo rc$?
 
 echo 8- Create a data/agent10/agent20/flow2/input/new/newsalary.csv file
 
-echo ${RANDOM} > data/agent10/agent20/flow2/input/new/newsalary.csv
+docker exec -it mftlab_agent10_1 echo ${RANDOM} > /mountpath/agent20/flow2/input/new/newsalary.csv
 
 echo 9- Wait and see at destination
 
@@ -53,7 +53,7 @@ echo rc$?
 
 echo 10- Create a data/agent10/agent20/flow2/input/new/oldperks.xls file
 
-echo ${RANDOM} > data/agent10/agent20/flow2/input/new/oldperks.xls
+edocker exec -it mftlab_agent10_1 echo ${RANDOM} > /mountpath/agent20/flow2/input/new/oldperks.xls
 
 echo 11- Wait and see at destination
 
