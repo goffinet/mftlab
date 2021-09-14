@@ -71,7 +71,7 @@ On the command line:
 
 A datagenerator container will generate fake data to `/mountpath/agent20/flow2/input/new` on AGENT10 agent.
 
-`/mountpath` – Path on the host file system mounted into container as `/mountpath`. This will be the directory where the agent will pick files to transfer in the local `./<data>/<agent>/<peer>/<flow>` folder with this subfolder structure:
+`/mountpath` – Path on the host file system mounted into container as `/mountpath`. This will be the directory where the agent will pick files to transfer in the local `./data/<agent>/<peer>/<flow>` folder with this subfolder structure:
 
 ```
 .
@@ -96,7 +96,7 @@ docker-compose logs qm
 docker-compose logs agent10
 ```
 
-Run dspmq comand and verify queue manager is running:
+Run `dspmq` command inside the container and verify queue manager is running:
 
 ```bash
 docker exec -it mftlab_qm_1 dspmq
@@ -114,7 +114,7 @@ Please give all permissions on the data transfer folder on the Docker host befor
 chmod -R 777 data/
 ```
 
-Run the following command login to source agent container:
+Run the following command into the source agent container:
 
 ```bash
 docker exec -it mftlab_agent10_1 ls -lh /mountpath/agent20/flow1/input/new/

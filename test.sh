@@ -41,25 +41,25 @@ echo 7- Check transfers
 docker exec -it mftlab_agent10_1 mqfts
 echo rc$?
 
-echo 8- Create a data/agent10/agent20/flow2/input/new/newsalary.csv file
+#echo 8- Create a data/agent10/agent20/flow2/input/new/newsalary.csv file
 
-docker exec -it mftlab_agent10_1 echo ${RANDOM} > /mountpath/agent20/flow2/input/new/newsalary.csv
+#docker exec -it mftlab_agent10_1 echo ${RANDOM} > /mountpath/agent20/flow2/input/new/newsalary.csv
 
-echo 9- Wait and see at destination
+#echo 9- Wait and see at destination
 
-sleep 20
-docker exec -it mftlab_agent20_1 ls -lh /mountpath/agent10/flow2/output/new/newsalary.csv
-echo rc$?
+#sleep 20
+#docker exec -it mftlab_agent20_1 ls -lh /mountpath/agent10/flow2/output/new/newsalary.csv
+#echo rc$?
 
-echo 10- Create a data/agent10/agent20/flow2/input/new/oldperks.xls file
+#echo 10- Create a data/agent10/agent20/flow2/input/new/oldperks.xls file
 
-edocker exec -it mftlab_agent10_1 echo ${RANDOM} > /mountpath/agent20/flow2/input/new/oldperks.xls
+#docker exec -it mftlab_agent10_1 echo ${RANDOM} > /mountpath/agent20/flow2/input/new/oldperks.xls
 
 echo 11- Wait and see at destination
 
 sleep 20
-docker exec -it mftlab_agent20_1 ls -lh /mountpath/agent10/flow2/output/new/oldperks.xls
-echo rc$?
+#docker exec -it mftlab_agent20_1 ls -lh /mountpath/agent10/flow2/output/new/oldperks.xls
+#echo rc$?
 
 docker exec -it mftlab_agent10_1 mqfts
 echo rc$?
